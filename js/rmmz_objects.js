@@ -1,5 +1,5 @@
 //=============================================================================
-// rmmz_objects.js v1.8.0
+// rmmz_objects.js v1.6.0
 //=============================================================================
 
 //-----------------------------------------------------------------------------
@@ -410,7 +410,11 @@ Game_System.prototype.windowPadding = function() {
 };
 
 Game_System.prototype.windowOpacity = function() {
-    return $dataSystem.advanced.windowOpacity;
+    if ("windowOpacity" in $dataSystem.advanced) {
+        return $dataSystem.advanced.windowOpacity;
+    } else {
+        return 192;
+    }
 };
 
 //-----------------------------------------------------------------------------
@@ -3808,9 +3812,7 @@ Game_Battler.prototype.forceAction = function(skillId, targetIndex) {
     } else {
         action.setTarget(targetIndex);
     }
-    if (action.item()) {
-        this._actions.push(action);
-    }
+    this._actions.push(action);
 };
 
 Game_Battler.prototype.useItem = function(item) {

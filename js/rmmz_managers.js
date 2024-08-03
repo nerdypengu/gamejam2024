@@ -1,5 +1,5 @@
 //=============================================================================
-// rmmz_managers.js v1.8.0
+// rmmz_managers.js v1.6.0
 //=============================================================================
 
 //-----------------------------------------------------------------------------
@@ -216,10 +216,6 @@ DataManager.isBattleTest = function() {
 
 DataManager.isEventTest = function() {
     return Utils.isOptionValid("etest");
-};
-
-DataManager.isTitleSkip = function() {
-    return Utils.isOptionValid("tskip");
 };
 
 DataManager.isSkill = function(item) {
@@ -2820,18 +2816,12 @@ BattleManager.checkSubstitute = function(target) {
 };
 
 BattleManager.isActionForced = function() {
-    return (
-        !!this._actionForcedBattler &&
-        !$gameParty.isAllDead() &&
-        !$gameTroop.isAllDead()
-    );
+    return !!this._actionForcedBattler;
 };
 
 BattleManager.forceAction = function(battler) {
-    if (battler.numActions() > 0) {
-        this._actionForcedBattler = battler;
-        this._actionBattlers.remove(battler);
-    }
+    this._actionForcedBattler = battler;
+    this._actionBattlers.remove(battler);
 };
 
 BattleManager.processForcedAction = function() {
